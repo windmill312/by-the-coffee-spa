@@ -1,11 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
-import Product from './Product';
+import OrderProduct from './OrderProduct';
 
-const ProductsList = ({ className, products }) => (
+const ProductsList = ({ className, products, cafeUid }) => (
   <div className={className}>
     {products.map(product => (
-      <Product product={product} key={product.productUid} />
+      <OrderProduct product={product} cafeUid={cafeUid} key={product.productUid} />
     ))}
   </div>
 );

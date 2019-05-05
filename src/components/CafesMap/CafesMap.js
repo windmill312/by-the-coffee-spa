@@ -1,17 +1,9 @@
 import React from 'react';
-import { YMaps, Map, Placemark } from 'react-yandex-maps';
+import { YMaps, Map, Placemark, ZoomControl, GeolocationControl } from 'react-yandex-maps';
 import styled from 'styled-components';
 import Title from '../common/Title';
 import TitleContainer from '../common/TitleContainer';
-
-const MapWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  margin: 10px;
-  width: 100%;
-  height: 100%;
-`;
+import Box from '../common/Box';
 
 const CafesMap = ({ className, cafes, userLocation }) => {
   return (
@@ -19,15 +11,14 @@ const CafesMap = ({ className, cafes, userLocation }) => {
       <TitleContainer>
         <Title>Кофейни</Title>
       </TitleContainer>
-      <MapWrapper>
+      <Box>
         <YMaps
           enterprise
           query={{
             apikey: '9de71b93-75e4-4fa8-a648-c132af64c790',
           }}
         >
-          {console.log(cafes)}
-          <Map defaultState={userLocation} width={500} height={500}>
+          <Map defaultState={userLocation} width={700} height={500}>
             {cafes.map(data => (
               <Placemark
                 key={data.cafeUid}
@@ -38,9 +29,11 @@ const CafesMap = ({ className, cafes, userLocation }) => {
                 modules={['geoObject.addon.balloon', 'geoObject.addon.hint']}
               />
             ))}
+            <ZoomControl />
+            <GeolocationControl />
           </Map>
         </YMaps>
-      </MapWrapper>
+      </Box>
     </div>
   );
 };
@@ -61,5 +54,3 @@ const StyledCafesList = styled(CafesMap)`
 `;
 
 export default StyledCafesList;
-
-// {cafes.map(data => <Placemark geometry={data} />)}

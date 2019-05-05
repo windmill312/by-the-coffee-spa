@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { withRouter } from 'react-router-dom';
 import Box from '../common/Box';
 import Meta from '../common/Meta';
 import Description from '../common/Description';
+import Fallback from '../common/Fallback';
+import Loader from '../common/Loader';
+import { getProduct } from '../../api/products';
 
 const Title = styled.div`
   font-weight: 700;
@@ -19,28 +22,35 @@ const Price = styled.h1`
   align-text: right;
 `;
 
-const Product = ({
+const ProductInfo = ({
   className,
-  product,
-  history,
   match: {
-    params: { id },
+    params: { productId },
   },
 }) => {
+  const [product, setProduct] = useState({ isLoading: true });
+
+  console.log(productId);
+  useEffect(() => {
+    getProduct({ productUid: productId }).then(res => setProduct({ isLoading: false, ...res }));
+  }, []);
+
   return (
-    <div className={className} role="link">
-      <Box onClick={() => history.push(`/cafes/${id}/products/${product.productUid}`)}>
-        <Meta>
-          <Title>Название: {product.name}</Title>
-        </Meta>
-        <Description>Описание: {product.description}</Description>
-        <Price>Группа: {product.productGroup}</Price>
-      </Box>
-    </div>
+    <Fallback isLoading={product.isLoading} Component={Loader}>
+      <div className={className}>
+        <Box>
+          <Meta>
+            <Title>Название: {product.name}</Title>
+          </Meta>
+          <Description>Описание: {product.description}</Description>
+          <Price>Группа: {product.productGroup}</Price>
+        </Box>
+      </div>
+    </Fallback>
   );
 };
 
-const StyledCafe = styled(Product)`
+const StyledProductInfo = styled(ProductInfo)`
   ${Box} {
     display: flex;
     flex-direction: column;
@@ -71,4 +81,4 @@ const StyledCafe = styled(Product)`
   }
 `;
 
-export default withRouter(StyledCafe);
+export default withRouter(StyledProductInfo);

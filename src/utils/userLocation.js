@@ -1,7 +1,6 @@
 export const getLocation = new Promise((resolve, reject) => {
   navigator.geolocation.getCurrentPosition(
     position => {
-      console.log(position.coords);
       resolve({ center: [position.coords.latitude, position.coords.longitude], zoom: 15 });
     },
     error => {

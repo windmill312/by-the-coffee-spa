@@ -8,7 +8,7 @@ import Meta from '../common/Meta';
 import { convertTimestampToDate } from '../../utils/timeUtils';
 import Container from '../common/Container';
 import { getCafe } from '../../api/cafes';
-import ProductsList from '../ProductsList/ProductsList';
+import OrderProductsList from './OrderProductsList';
 import Fallback from '../common/Fallback';
 import Loader from '../common/Loader';
 
@@ -87,7 +87,7 @@ const OrdersPage = ({
             <Price>Оплачено: {totalPrice}</Price>
             <SubTitle>Товары</SubTitle>
             <Container>
-              <ProductsList products={products} cafeUid={cafeUid} />
+              <OrderProductsList products={products} cafeUid={cafeUid} />
             </Container>
           </Content>
         </Box>
