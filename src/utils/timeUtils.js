@@ -1,3 +1,5 @@
+import * as moment from 'moment';
+
 export function formatTime(millis) {
   const hours = Math.floor(millis / 3600);
   let minutes = Math.floor((millis - hours * 3600) / 60);
@@ -16,3 +18,6 @@ export function isOpen(workFromMillis, workTillMillis) {
 
   return currentTime >= workFromMillis && currentTime < workTillMillis;
 }
+
+export const convertMilisToHours = milis => milis / (60 * 60 * 1000);
+export const convertTimestampToDate = timestamp => moment.unix(timestamp).format('LL');

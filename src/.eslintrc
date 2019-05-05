@@ -8,7 +8,9 @@
     "react/prop-types": [0],
     "no-underscore-dangle": ["error", { "allow": ["__REDUX_DEVTOOLS_EXTENSION_COMPOSE__"] }],
     "import/prefer-default-export": [0],
-    "react/jsx-one-expression-per-line": [0]
+    "react/jsx-one-expression-per-line": [0],
+    "prefer-promise-reject-errors": "warn",
+    "no-param-reassign": "warn"
   },
   "settings": {
     "import/resolver": {

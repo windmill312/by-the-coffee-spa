@@ -2,26 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { Route, Switch } from 'react-router';
-import userIcon from '../assets/user.png';
-import NavBar from './common/NavBar';
-import MenuBar from './common/MenuBar';
-import CafesListPage from "../pages/CafesListPage";
-
-const Title = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  color: #000;
-  margin-bottom: 10px;
-  font-size: 1rem;
-  text-decoration: none;
-  font-weight: 600;
-  &:hover,
-  &:active,
-  &:focus {
-    text-decoration: none;
-  }
-`;
+import userIcon from '../../assets/user.png';
+import NavBar from './NavBar';
+import MenuBar from './MenuBar';
+import logoPng from '../../assets/coffee.png';
 
 const UserIcon = styled.div`
   display: inline-block;
@@ -32,6 +16,14 @@ const UserIcon = styled.div`
   height: 20px;
 `;
 
+const LogoIcon = styled.div`
+  height: 50px;
+  width: 50px;
+  display: inline-block;
+  background: url("${logoPng}") no-repeat center;
+  background-size: contain;
+`;
+
 const UserWrapper = styled.div`
   a {
     display: flex;
@@ -39,7 +31,7 @@ const UserWrapper = styled.div`
     align-items: center;
     color: #000;
     margin-bottom: 10px;
-    font-size: 0.8rem;
+    font-size: 1rem;
     text-decoration: none;
     font-weight: 500;
     &:hover,
@@ -53,7 +45,28 @@ const UserWrapper = styled.div`
   }
 `;
 
-const Navbar = styled.div`
+const LogoWrapper = styled.div`
+  a {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    color: #000;
+    margin-bottom: 10px;
+    font-size: 1.5rem;
+    text-decoration: none;
+    font-weight: 600;
+    &:hover,
+    &:active,
+    &:focus {
+      text-decoration: none;
+    }
+  }
+  ${LogoIcon} {
+    margin-right: 10px;
+  }
+`;
+
+const Nav = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -69,21 +82,28 @@ const Navbar = styled.div`
 
 const Header = ({ className }) => (
   <div className={className}>
-    <Navbar>
-      <Link to="/cafes-map">
-        <Title>Кофе на бегу</Title>
-      </Link>
+    <Nav>
+      <LogoWrapper>
+        <Link to="/cafes/map">
+          <LogoIcon /> Кофе на бегу
+        </Link>
+      </LogoWrapper>
       <Switch>
-        <Route path="/cafes/:id/" component={MenuBar} />
-        <Route path="/cafes-list" component={CafesListPage} />
+        <Route path="/cafes/:id/" strict component={MenuBar} />
         <Route component={NavBar} />
       </Switch>
       <UserWrapper>
-        <Link to="/user">
-          <UserIcon /> Личный кабинет
-        </Link>
+        {localStorage.getItem('isAuth') !== null ? (
+          <Link to="/user">
+            <UserIcon /> Личный кабинет
+          </Link>
+        ) : (
+          <Link to="/login">
+            <UserIcon /> Войти
+          </Link>
+        )}
       </UserWrapper>
-    </Navbar>
+    </Nav>
   </div>
 );
 
@@ -91,12 +111,13 @@ const StyledHeader = styled(Header)`
   padding-left: 100px;
   padding-right: 30px;
   padding-top: 10px;
-  padding-bottom; 10px;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
   display: flex;
   flex-direction: column;
   box-shadow: 0 8px 16px -12px rgba(0, 0, 0, 0.3);
   background-color: #fff;
-  background: #e2e2de;
+  background: rgb(245, 245, 246);
 `;
 
 export default StyledHeader;

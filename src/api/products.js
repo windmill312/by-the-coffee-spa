@@ -1,7 +1,8 @@
 import client from './client';
+import * as apiPath from './apiPath';
 
-export const fetchProducts = ({ cafeUid }) =>
-  client
-    .get(`/products?cafeUid=${cafeUid}`)
-    .then(x => x.data)
-    .then(x => x.content);
+export const getProduct = ({ productUid }) =>
+  client.get(`${apiPath.PRODUCT}/${productUid}`).then(x => x.data);
+
+export const getProductsByCafe = ({ cafeUid }) =>
+  client.get(`${apiPath.PRODUCTS_BY_CAFE}/cafe/${cafeUid}`).then(x => x.data);

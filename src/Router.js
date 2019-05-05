@@ -1,14 +1,17 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { ConnectedRouter } from 'connected-react-router';
-
-import CafesMapPage from './pages/CafesMapPage';
-import CafesListPage from './pages/CafesListPage';
 import NotFoundPage from './pages/NotFoundPage';
 
-import Header from './components/Header';
-import StyledContainer from './components/Container';
-import StyledContent from './components/Content';
+import Header from './components/common/Header';
+import StyledContainer from './components/common/Container';
+import StyledContent from './components/common/Content';
+import SignUpPage from './pages/SignUpPage';
+import LoginPage from './pages/LoginPage';
+import CafesPage from './pages/CafesPage';
+import OrdersPage from './pages/OrdersPage';
+import CartPage from './pages/CartPage';
+import CustomerPage from './pages/CustomerPage';
 
 const RootRouter = ({ history }) => (
   <ConnectedRouter history={history}>
@@ -16,8 +19,12 @@ const RootRouter = ({ history }) => (
     <StyledContainer>
       <StyledContent>
         <Switch>
-          <Route path="/cafes-map" component={CafesMapPage} />
-          <Route path="/cafes-list" component={CafesListPage} />
+          <Route path="/" exact component={SignUpPage} />
+          <Route path="/cafes" component={CafesPage} />
+          <Route path="/login" exact component={LoginPage} />
+          <Route path="/orders" exact component={OrdersPage} />
+          <Route path="/cart" exact component={CartPage} />
+          <Route path="/user" exact component={CustomerPage} />
           <Route component={NotFoundPage} />
         </Switch>
       </StyledContent>

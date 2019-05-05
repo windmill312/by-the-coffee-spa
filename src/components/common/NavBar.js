@@ -4,9 +4,14 @@ import { NavLink } from 'react-router-dom';
 
 const NavBar = ({ className }) => (
   <div className={className}>
-    <NavLink to="/cafes-map">Карта</NavLink>
-    <NavLink to="/cafes-list">Список кофеен</NavLink>
-    <NavLink to="/orders">Мои заказы</NavLink>
+    <NavLink to="/cafes/map">Карта</NavLink>
+    <NavLink to="/cafes/list">Список кофеен</NavLink>
+    {localStorage.getItem('isAuth') !== null ? (
+      <div>
+        <NavLink to="/orders">Мои заказы</NavLink>
+        <NavLink to="/cart">Корзина</NavLink>
+      </div>
+    ) : null}
   </div>
 );
 
@@ -16,6 +21,10 @@ const StyledNavBar = styled(NavBar)`
   align-items: stretch;
   overflow: hidden;
   margin-bottom: 10px;
+
+  div {
+    margin-left: 10px;
+  }
 
   a {
     text-decoration: none;

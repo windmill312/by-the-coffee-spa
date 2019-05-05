@@ -13,8 +13,6 @@ const MenuBar = ({
       Описание
     </NavLink>
     <NavLink to={`/cafes/${id}/products`}>Товары</NavLink>
-    <NavLink to={`/events/${id}/partners`}>Партнеры</NavLink>
-    <NavLink to={`/events/${id}/history`}>История</NavLink>
   </div>
 );
 

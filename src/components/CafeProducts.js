@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { withRouter } from 'react-router-dom';
-import Box from '../common/Box';
+import Box from './common/Box';
 
 const Meta = styled.div`
   display: flex;
@@ -21,15 +21,7 @@ const Description = styled.div`
   line-height: 1.2rem;
 `;
 
-const Cafe = ({
-  className,
-  name,
-  description,
-  history,
-  cafeUid,
-  timeFromMillis,
-  timeTillMillis,
-}) => (
+const CafeProducts = ({ className, name, description, history, cafeUid }) => (
   <div className={className} role="link">
     <Box onClick={() => history.push(`/cafes/${cafeUid}`)}>
       <Meta>
@@ -40,7 +32,7 @@ const Cafe = ({
   </div>
 );
 
-const StyledCafe = styled(Cafe)`
+const StyledCafeProducts = styled(CafeProducts)`
   ${Box} {
     display: flex;
     flex-direction: column;
@@ -71,4 +63,4 @@ const StyledCafe = styled(Cafe)`
   }
 `;
 
-export default withRouter(StyledCafe);
+export default withRouter(StyledCafeProducts);
