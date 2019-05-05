@@ -87,7 +87,7 @@ const OrdersPage = ({
             <Price>Оплачено: {totalPrice}</Price>
             <SubTitle>Товары</SubTitle>
             <Container>
-              <ProductsList products={products} />
+              <ProductsList products={products} cafeUid={cafeUid} />
             </Container>
           </Content>
         </Box>
