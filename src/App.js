@@ -3,8 +3,8 @@ import { createBrowserHistory } from 'history';
 import { ThemeProvider } from 'styled-components';
 import { Provider as StoreProvider } from 'react-redux';
 import Router from './Router';
-import configureStore from './store';
 import { GlobalStyles, theme } from './theme';
+import configureStore from './store';
 
 const history = createBrowserHistory();
 const store = configureStore(history);

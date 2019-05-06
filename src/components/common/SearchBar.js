@@ -24,6 +24,7 @@ const SearchBar = ({ className, onChange, filter }) => (
 const StyledSearchBar = styled(SearchBar)`
   ${StyledInput} {
     width: 100%;
+    margin-bottom: 10px;
   }
 `;
 

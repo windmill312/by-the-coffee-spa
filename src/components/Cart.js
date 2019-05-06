@@ -23,7 +23,7 @@ const Cart = ({ cartItems, className }) => (
     <TitleContainer>
       <Title>Корзина</Title>
     </TitleContainer>
-
+    {console.log(cartItems)}
     {cartItems && cartItems.length ? (
       <React.Fragment>
         <CartTable items={cartItems} />

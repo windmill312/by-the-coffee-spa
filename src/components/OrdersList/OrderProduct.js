@@ -3,23 +3,39 @@ import styled from 'styled-components';
 import { withRouter } from 'react-router-dom';
 import Box from '../common/Box';
 import Meta from '../common/Meta';
-import Description from '../common/Description';
 import { getProduct } from '../../api/products';
 import Loader from '../common/Loader';
 import Fallback from '../common/Fallback';
 
 const Title = styled.div`
   font-weight: 700;
-  font-size: 2rem;
+  display: inline;
+`;
+
+const Quantity = styled.div`
+  display: inline;
+  flex-direction: row;
+  align-items: center;
+  color: #000;
+  margin-bottom: 10px;
+  font-size: 1rem;
+  text-decoration: none;
+  font-weight: 500;
+  &:hover,
+  &:active,
+  &:focus {
+    text-decoration: none;
+  }
 `;
 
 const Price = styled.h1`
-  font-weight: 700;
-  font-size: 1.1rem;
+  font-weight: 500;
+  font-size: 1rem;
   line-height: 1.5rem;
   color: rgb(240, 106, 58);
   flex-direction: row;
-  align-text: right;
+  display: inline;
+  margin-left: 50px;
 `;
 
 const OrderProduct = ({ className, history, product, cafeUid }) => {
@@ -35,13 +51,9 @@ const OrderProduct = ({ className, history, product, cafeUid }) => {
     <div className={className} role="link">
       <Fallback isLoading={info.isLoading} Component={Loader}>
         <Box onClick={() => history.push(`/cafes/${cafeUid}/products/${product.productUid}`)}>
-          <Meta>
-            <Title>{info.name}</Title>
-          </Meta>
-          <Description>{info.description}</Description>
-          <Price>Группа: {info.productGroup}</Price>
-          <Price>Количество: {product.quantity}</Price>
-          <Price>Итог: {product.quantity * info.price}</Price>
+          <Title>{info.name}</Title>
+          <Quantity>Количество: {product.quantity}</Quantity>
+          <Price>Сумма: {(product.quantity * info.price).toFixed(2)}</Price>
         </Box>
       </Fallback>
     </div>
@@ -50,15 +62,12 @@ const OrderProduct = ({ className, history, product, cafeUid }) => {
 
 const StyledOrderProduct = styled(OrderProduct)`
   ${Box} {
-    display: flex;
+    display: block;
     flex-direction: column;
     align-items: stretch;
     cursor: pointer;
     padding: 20px 28px;
-
-    ${Description} {
-      margin-top: 16px;
-    }
+    margin: 0;
 
     transition: all 0.1s ease-in-out;
 
@@ -73,7 +82,7 @@ const StyledOrderProduct = styled(OrderProduct)`
     }
 
     ${Title} {
-      font-size: 1.25rem;
+      font-size: 1rem;
       margin-bottom: 10px;
     }
   }

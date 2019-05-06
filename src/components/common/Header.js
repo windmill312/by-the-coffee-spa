@@ -30,7 +30,6 @@ const UserWrapper = styled.div`
     flex-direction: row;
     align-items: center;
     color: #000;
-    margin-bottom: 10px;
     font-size: 1rem;
     text-decoration: none;
     font-weight: 500;
@@ -51,7 +50,6 @@ const LogoWrapper = styled.div`
     flex-direction: row;
     align-items: center;
     color: #000;
-    margin-bottom: 10px;
     font-size: 1.5rem;
     text-decoration: none;
     font-weight: 600;
@@ -64,6 +62,10 @@ const LogoWrapper = styled.div`
   ${LogoIcon} {
     margin-right: 10px;
   }
+`;
+
+const SwitchWrapper = styled.div`
+  margin-top: 10px;
 `;
 
 const Nav = styled.div`
@@ -88,10 +90,12 @@ const Header = ({ className }) => (
           <LogoIcon /> Кофе на бегу
         </Link>
       </LogoWrapper>
-      <Switch>
-        <Route path="/cafes/:id/" strict component={MenuBar} />
-        <Route component={NavBar} />
-      </Switch>
+      <SwitchWrapper>
+        <Switch>
+          <Route path="/cafes/:id/" strict component={MenuBar} />
+          <Route component={NavBar} />
+        </Switch>
+      </SwitchWrapper>
       <UserWrapper>
         {localStorage.getItem('isAuth') !== null ? (
           <Link to="/user">
@@ -110,14 +114,13 @@ const Header = ({ className }) => (
 const StyledHeader = styled(Header)`
   padding-left: 100px;
   padding-right: 30px;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding-top: 2px;
+  padding-bottom: 2px;
   margin-bottom: 20px;
   display: flex;
   flex-direction: column;
   box-shadow: 0 8px 16px -12px rgba(0, 0, 0, 0.3);
-  background-color: #fff;
-  background: rgb(245, 245, 246);
+  background-color: #dfdfdf;
 `;
 
 export default StyledHeader;

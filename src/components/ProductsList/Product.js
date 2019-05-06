@@ -10,11 +10,24 @@ const Title = styled.div`
   font-size: 2rem;
 `;
 
+const InfoWrapper = styled.div`
+  display: column;
+`;
+
 const Price = styled.h1`
   font-weight: 700;
   font-size: 1.1rem;
   line-height: 1.5rem;
   color: rgb(240, 106, 58);
+  flex-direction: row;
+  align-text: right;
+`;
+
+const Group = styled.h1`
+  font-weight: 300;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  color: #c3c3be;
   flex-direction: row;
   align-text: right;
 `;
@@ -31,10 +44,12 @@ const Product = ({
     <div className={className} role="link">
       <Box onClick={() => history.push(`/cafes/${id}/products/${product.productUid}`)}>
         <Meta>
-          <Title>Название: {product.name}</Title>
+          <Title>{product.name}</Title>
+          <InfoWrapper>
+            <Group>{product.productGroup}</Group>
+            <Price>{product.price.toFixed(2)} руб.</Price>
+          </InfoWrapper>
         </Meta>
-        <Description>Описание: {product.description}</Description>
-        <Price>Группа: {product.productGroup}</Price>
       </Box>
     </div>
   );
@@ -46,7 +61,8 @@ const StyledCafe = styled(Product)`
     flex-direction: column;
     align-items: stretch;
     cursor: pointer;
-    padding: 20px 28px;
+    padding: 0px 28px;
+    margin: 0 50px;
 
     ${Description} {
       margin-top: 16px;

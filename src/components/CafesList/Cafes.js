@@ -47,6 +47,9 @@ const StyledCafes = styled(Cafes)`
       font-size: 1.25rem;
     }
   }
+  ${SearchBar} {
+    display: flex;
+  }
 `;
 
 export default withRouter(StyledCafes);

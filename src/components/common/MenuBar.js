@@ -22,6 +22,7 @@ const StyledMenuBar = styled(MenuBar)`
   flex-direction: row;
   align-items: stretch;
   margin-left: 30px;
+  margin-bottom: 10px;
 
   a {
     text-decoration: none;
@@ -29,7 +30,7 @@ const StyledMenuBar = styled(MenuBar)`
     border-bottom: 3px solid transparent;
 
     &.active {
-      border-bottom: 3px solid #e02a45;
+      border-bottom: 3px solid #eed121;
     }
   }
 

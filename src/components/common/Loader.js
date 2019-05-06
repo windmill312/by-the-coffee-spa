@@ -27,7 +27,7 @@ const Loader = styled.span`
     background-position: center;
     vertical-align: middle;
     animation-name: loader;
-    animation-duration: 1500ms;
+    animation-duration: 2000ms;
     animation-iteration-count: infinite;
     animation-timing-function: linear;
     content: '';
