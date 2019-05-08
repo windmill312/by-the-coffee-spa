@@ -6,7 +6,7 @@ const CartTable = ({ className, items }) => (
     <table>
       <tbody>
         <tr>
-          <th width="99%">Блюдо</th>
+          <th width="99%">Товар</th>
           <th>Цена</th>
         </tr>
         {items.map((item, index) => (

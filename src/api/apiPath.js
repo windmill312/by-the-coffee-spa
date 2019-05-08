@@ -1,6 +1,7 @@
 export const COFFEEHOUSE = '/coffeehouse';
 
-export const ORDER = '/order/customer';
+export const ORDER_CUSTOMER = '/order/customer';
+export const ORDER = '/order';
 
 export const PRODUCT = '/product';
 export const PRODUCTS_BY_CAFE = '/product/cafe';

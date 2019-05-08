@@ -1,21 +1,21 @@
 import styled from 'styled-components';
 
 const StyledButton = styled.button`
-  background: rgb(253, 238, 171);
   outline: none;
-  color: #9c9c9c;
+  color: rgb(51, 51, 51);
   height: 47px;
   min-width: 7em;
-  border-color: #eee;
-  border-radius: 50px;
+  border: 1px solid #ffdd2d;
+  background-color: #ffdd2d;
+  border-radius: 10px;
   padding: 11px 40px;
-  margin-top: 20px;
   font-size: 16px;
   transition: all 0.2s ease-in-out;
+  align-items: center;
   &:hover,
   &:focus,
   &:active {
-    border: 1px solid #9c9c9c;
+    background: #f3cf55;
   }
 `;
 

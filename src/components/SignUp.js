@@ -6,6 +6,7 @@ import Input from './common/Input';
 import Box from './common/Box';
 import Button from './common/Button';
 import { create } from '../api/customer';
+import SubTitle from './common/SubTitle';
 
 const Title = styled.h1`
   margin: 16px 0 0 0;
@@ -16,15 +17,6 @@ const Title = styled.h1`
   @media (max-width: 450px) {
     font-size: 1.25rem;
   }
-`;
-
-const SubTitle = styled.h2`
-  margin: 8px 0 4px 0;
-  padding: 0;
-  font-weight: 700;
-  font-size: 1.1rem;
-  line-height: 1.5rem;
-  color: #9c9c9c;
 `;
 
 const Content = styled.div`

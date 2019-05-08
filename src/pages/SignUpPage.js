@@ -5,7 +5,7 @@ import Login from './LoginPage';
 
 const SignUpPage = () => (
   <Switch>
-    <Route path="/" exact component={SignUp} />
+    <Route path="/signup" exact component={SignUp} />
     <Route path="/login" exact component={Login} />
   </Switch>
 );

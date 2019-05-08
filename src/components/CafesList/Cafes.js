@@ -8,6 +8,8 @@ import TitleContainer from '../common/TitleContainer';
 import Loader from '../common/Loader';
 import Fallback from '../common/Fallback';
 import SearchBar from '../common/SearchBar';
+import StyledContent from '../common/Content';
+import StyledContainer from '../common/Container';
 
 const filterPredicate = filterValue => items => {
   const isNameAlike = items.name.toLowerCase().startsWith(filterValue.toLowerCase());
@@ -25,13 +27,17 @@ const Cafes = ({ className }) => {
 
   return (
     <div className={className}>
-      <TitleContainer>
-        <Title>Список кофеен</Title>
-      </TitleContainer>
-      <SearchBar onChange={setFilter} value={filter} />
-      <Fallback isLoading={cafes.isLoading} Component={Loader}>
-        <CafesList cafes={cafes.data.filter(filterPredicate(filter))} />
-      </Fallback>
+      <StyledContainer>
+        <StyledContent>
+          <TitleContainer>
+            <Title>Список кофеен</Title>
+          </TitleContainer>
+          <SearchBar onChange={setFilter} value={filter} />
+          <Fallback isLoading={cafes.isLoading} Component={Loader}>
+            <CafesList cafes={cafes.data.filter(filterPredicate(filter))} />
+          </Fallback>
+        </StyledContent>
+      </StyledContainer>
     </div>
   );
 };

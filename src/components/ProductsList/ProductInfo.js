@@ -7,6 +7,7 @@ import Description from '../common/Description';
 import Fallback from '../common/Fallback';
 import Loader from '../common/Loader';
 import { getProduct } from '../../api/products';
+import Button from '../common/Button';
 
 const Title = styled.div`
   font-weight: 700;
@@ -24,13 +25,13 @@ const Price = styled.h1`
 
 const ProductInfo = ({
   className,
+  addToCart,
   match: {
-    params: { productId },
+    params: { productId, cafeId },
   },
 }) => {
   const [product, setProduct] = useState({ isLoading: true });
 
-  console.log(productId);
   useEffect(() => {
     getProduct({ productUid: productId }).then(res => setProduct({ isLoading: false, ...res }));
   }, []);
@@ -41,6 +42,19 @@ const ProductInfo = ({
         <Box>
           <Meta>
             <Title>Название: {product.name}</Title>
+            <Button
+              type="button"
+              onClick={() =>
+                addToCart({
+                  productUid: product.productUid,
+                  name: product.name,
+                  price: product.price,
+                  cafeUid: cafeId,
+                })
+              }
+            >
+              В корзину
+            </Button>
           </Meta>
           <Description>Описание: {product.description}</Description>
           <Price>Группа: {product.productGroup}</Price>

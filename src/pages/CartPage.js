@@ -1,9 +1,9 @@
 import React from 'react';
-import Cart from '../components/Cart';
+import CartContainer from '../containers/CartContainer';
 
 const CheckoutPage = () => (
   <div>
-    <Cart />
+    <CartContainer />
   </div>
 );
 

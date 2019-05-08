@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { withRouter } from 'react-router-dom';
+import Button from '../common/Button';
 import Box from '../common/Box';
 import Meta from '../common/Meta';
 import Description from '../common/Description';
@@ -12,6 +13,10 @@ const Title = styled.div`
 
 const InfoWrapper = styled.div`
   display: column;
+
+  ${Button} {
+    margin-bottom: 10px;
+  }
 `;
 
 const Price = styled.h1`
@@ -36,6 +41,7 @@ const Product = ({
   className,
   product,
   history,
+  addToCart,
   match: {
     params: { id },
   },
@@ -48,6 +54,19 @@ const Product = ({
           <InfoWrapper>
             <Group>{product.productGroup}</Group>
             <Price>{product.price.toFixed(2)} руб.</Price>
+            <Button
+              type="button"
+              onClick={() =>
+                addToCart({
+                  productUid: product.productUid,
+                  name: product.name,
+                  price: product.price,
+                  cafeUid: id,
+                })
+              }
+            >
+              В корзину
+            </Button>
           </InfoWrapper>
         </Meta>
       </Box>

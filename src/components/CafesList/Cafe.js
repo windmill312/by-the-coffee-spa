@@ -12,7 +12,7 @@ const Title = styled.div`
 
 const Cafe = ({ className, name, description, history, cafeUid }) => (
   <div className={className} role="link">
-    <Box onClick={() => history.push(`/cafes/${cafeUid}`)}>
+    <Box onClick={() => history.push(`/cafes/${cafeUid}/`)}>
       <Meta>
         <Title>{name}</Title>
       </Meta>

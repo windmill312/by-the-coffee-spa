@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { withRouter } from 'react-router-dom';
 import Input from '../common/Input';
 import Box from '../common/Box';
-import TitleContainer from '../common/TitleContainer';
 import Meta from '../common/Meta';
 import { convertTimestampToDate } from '../../utils/timeUtils';
 import Container from '../common/Container';
@@ -72,9 +71,6 @@ const OrdersPage = ({
   return (
     <Fallback isLoading={cafe.isLoading} Component={Loader}>
       <div className={className}>
-        <TitleContainer>
-          <Title>Мои заказы</Title>
-        </TitleContainer>
         <Box>
           <Content>
             <Meta>
@@ -107,6 +103,17 @@ const OrdersPage = ({
 const StyledOrders = styled(OrdersPage)`
   ${Input} {
     min-width: 60%;
+  }
+
+  ${Title} {
+    margin: 16px 0 10px 0;
+    padding: 0;
+    font-weight: 800;
+    font-size: 2rem;
+    color: #333333;
+    @media (max-width: 450px) {
+      font-size: 1.25rem;
+    }
   }
 `;
 

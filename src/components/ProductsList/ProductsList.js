@@ -2,10 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 import Product from './Product';
 
-const ProductsList = ({ className, products }) => (
+const ProductsList = ({ className, products, addToCart }) => (
   <div className={className}>
     {products.map(product => (
-      <Product product={product} key={product.productUid} />
+      <Product addToCart={addToCart} product={product} key={product.productUid} />
     ))}
   </div>
 );

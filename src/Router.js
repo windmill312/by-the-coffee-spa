@@ -19,8 +19,8 @@ const RootRouter = ({ history }) => (
     <StyledContainer>
       <StyledContent>
         <Switch>
-          <Route path="/" exact component={SignUpPage} />
           <Route path="/cafes" component={CafesPage} />
+          <Route path="/signup" exact component={SignUpPage} />
           <Route path="/login" exact component={LoginPage} />
           <Route path="/orders" exact component={OrdersPage} />
           <Route path="/cart" exact component={CartPage} />

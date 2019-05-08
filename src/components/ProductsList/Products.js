@@ -7,6 +7,7 @@ import ProductsList from './ProductsList';
 
 const Products = ({
   className,
+  addToCart,
   match: {
     params: { id },
   },
@@ -22,7 +23,7 @@ const Products = ({
   return (
     <div className={className}>
       <Fallback isLoading={products.isLoading} Component={Loader}>
-        <ProductsList products={products.data} />
+        <ProductsList addToCart={addToCart} products={products.data} />
       </Fallback>
     </div>
   );

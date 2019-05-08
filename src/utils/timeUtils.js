@@ -23,5 +23,5 @@ export function isOpen(workFromMillis, workTillMillis) {
 export const convertMilisToHours = milis => milis / (60 * 60 * 1000);
 export const convertTimestampToDate = timestamp => {
   moment.locale('ru');
-  return moment.unix(timestamp).format('hh:mm DD/MM/YYYY');
+  return moment.unix(timestamp).format('DD.MM.YYYY, hh:mm');
 };

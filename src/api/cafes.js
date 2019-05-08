@@ -9,4 +9,7 @@ export const getCafes = ({ latitude, longitude }) =>
     .then(x => x.data);
 
 export const getCafe = ({ cafeUid }) =>
-  client.get(`${apiPath.COFFEEHOUSE}/${cafeUid}`).then(x => x.data);
+  client
+    .get(`${apiPath.COFFEEHOUSE}/${cafeUid}`)
+    .then(x => x.data)
+    .catch(err => console.log(err));

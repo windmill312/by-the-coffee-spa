@@ -1,8 +1,10 @@
 import { applyMiddleware, compose, createStore, combineReducers } from 'redux';
 import { routerMiddleware, connectRouter } from 'connected-react-router';
+import { cart } from './modules/cart';
 
 const createRootReducer = history =>
   combineReducers({
+    cart,
     router: connectRouter(history),
   });
 

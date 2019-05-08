@@ -21,7 +21,6 @@ const Cafe = ({
 }) => {
   const [cafe, setCafe] = useState({ isLoading: true, data: [] });
 
-  console.log(id);
   useEffect(() => {
     getCafe({ cafeUid: id }).then(res => setCafe({ isLoading: false, ...res }));
   }, []);

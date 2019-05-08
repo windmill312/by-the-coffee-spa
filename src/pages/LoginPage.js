@@ -69,11 +69,12 @@ const LoginPage = ({ className, history }) => {
           <Input ref={identifierRef} />
 
           <SubTitle>Пароль</SubTitle>
-          <Input ref={passwordRef} />
+          <Input ref={passwordRef} type="password" />
 
           <br />
           <Button onClick={submit}>Войти</Button>
         </Content>
+        <Button onClick={() => history.push(`/signup`)}>Зарегистрироваться</Button>
       </Box>
     </div>
   );
@@ -82,6 +83,10 @@ const LoginPage = ({ className, history }) => {
 const StyledCafes = styled(LoginPage)`
   ${Input} {
     min-width: 60%;
+  }
+
+  ${Box} {
+    width: 60%;
   }
 `;
 
