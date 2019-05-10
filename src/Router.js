@@ -12,23 +12,29 @@ import CafesPage from './pages/CafesPage';
 import OrdersPage from './pages/OrdersPage';
 import CartPage from './pages/CartPage';
 import CustomerPage from './pages/CustomerPage';
+import ScanQrCodePage from './pages/ScanQrCodePage';
+import OAuthPage from './pages/OAuthPage';
 
 const RootRouter = ({ history }) => (
   <ConnectedRouter history={history}>
     <Header />
-    <StyledContainer>
-      <StyledContent>
-        <Switch>
-          <Route path="/cafes" component={CafesPage} />
-          <Route path="/signup" exact component={SignUpPage} />
-          <Route path="/login" exact component={LoginPage} />
-          <Route path="/orders" exact component={OrdersPage} />
-          <Route path="/cart" exact component={CartPage} />
-          <Route path="/user" exact component={CustomerPage} />
-          <Route component={NotFoundPage} />
-        </Switch>
-      </StyledContent>
-    </StyledContainer>
+    <Switch>
+      <Route path="/cafes" component={CafesPage} />
+      <StyledContainer>
+        <StyledContent>
+          <Switch>
+            <Route path="/signup" exact component={SignUpPage} />
+            <Route path="/login" exact component={LoginPage} />
+            <Route path="/orders" component={OrdersPage} />
+            <Route path="/cart" exact component={CartPage} />
+            <Route path="/user" exact component={CustomerPage} />
+            <Route path="/qrcode/:id" exact component={ScanQrCodePage} />
+            <Route path="/oauth/authorize" exact component={OAuthPage} />
+            <Route component={NotFoundPage} />
+          </Switch>
+        </StyledContent>
+      </StyledContainer>
+    </Switch>
   </ConnectedRouter>
 );
 

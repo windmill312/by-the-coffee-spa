@@ -5,7 +5,7 @@ import Cafe from './Cafe';
 const Cafes = ({ className, cafes }) => (
   <div className={className}>
     {cafes.map(cafe => (
-      <Cafe {...cafe} key={cafe.cafeUid} />
+      <Cafe className={className} {...cafe} key={cafe.cafeUid} />
     ))}
   </div>
 );

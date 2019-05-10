@@ -10,6 +10,7 @@ import Fallback from '../common/Fallback';
 import SearchBar from '../common/SearchBar';
 import StyledContent from '../common/Content';
 import StyledContainer from '../common/Container';
+import SubTitle from '../common/SubTitle';
 
 const filterPredicate = filterValue => items => {
   const isNameAlike = items.name.toLowerCase().startsWith(filterValue.toLowerCase());
@@ -18,11 +19,16 @@ const filterPredicate = filterValue => items => {
 };
 
 const Cafes = ({ className }) => {
-  const [cafes, setCafes] = useState({ isLoading: true, data: [] });
+  const [cafes, setCafes] = useState({ isLoading: true, data: [], isError: false });
   const [filter, setFilter] = useState('');
 
   useEffect(() => {
-    getAllCafes().then(res => setCafes({ isLoading: false, data: res.items }));
+    getAllCafes()
+      .then(res => setCafes({ isLoading: false, data: res.items, isError: false }))
+      .catch(err => {
+        console.log(`Get error while getting all cafes: ${err}`);
+        setCafes({ isLoading: false, data: [], isError: true });
+      });
   }, []);
 
   return (
@@ -34,7 +40,11 @@ const Cafes = ({ className }) => {
           </TitleContainer>
           <SearchBar onChange={setFilter} value={filter} />
           <Fallback isLoading={cafes.isLoading} Component={Loader}>
-            <CafesList cafes={cafes.data.filter(filterPredicate(filter))} />
+            {cafes.isError ? (
+              <SubTitle>Упс, произошла какая-то ошибка! Попробуйте снова познее...</SubTitle>
+            ) : (
+              <CafesList cafes={cafes.data.filter(filterPredicate(filter))} />
+            )}
           </Fallback>
         </StyledContent>
       </StyledContainer>
@@ -55,6 +65,10 @@ const StyledCafes = styled(Cafes)`
   }
   ${SearchBar} {
     display: flex;
+  }
+
+  ${SubTitle} {
+    color: #ee6b21;
   }
 `;
 

@@ -1,14 +1,14 @@
 import client from './client';
 import * as apiPath from './apiPath';
 
-export const getOrders = () =>
-  client.get(`${apiPath.ORDER_CUSTOMER}/${localStorage.getItem('customerUid')}`).then(x => {
+export const getOrdersByCustomer = ({ customerUid }) =>
+  client.get(`${apiPath.ORDER_CUSTOMER}/${customerUid}`).then(x => {
     console.log(x);
     return x;
   });
 
-export const getOrder = ({ id }) =>
-  client.get(`${apiPath.ORDER}\\${id}`).then(x => {
+export const getOrder = ({ orderUid }) =>
+  client.get(`${apiPath.ORDER}\\${orderUid}`).then(x => {
     console.log(x);
     return x;
   });
@@ -24,3 +24,9 @@ export const createOrder = ({ customerUid, cafeUid, products, totalPrice, receiv
       status,
     })
     .then(x => x.data);
+
+export const updateOrderStatus = ({ orderUid, status }) =>
+  client.patch(apiPath.ORDER, {
+    orderUid,
+    status,
+  });

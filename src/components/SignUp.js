@@ -1,7 +1,7 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
-import { withRouter } from 'react-router-dom';
 import moment from 'moment';
+import { withRouter } from 'react-router';
 import Input from './common/Input';
 import Box from './common/Box';
 import Button from './common/Button';
@@ -19,6 +19,15 @@ const Title = styled.h1`
   }
 `;
 
+const DangerSubTitle = styled.h2`
+  margin: 8px 0 4px 0;
+  padding: 0;
+  font-weight: 700;
+  font-size: 1.1rem;
+  line-height: 1.5rem;
+  color: #ee6b21;
+`;
+
 const Content = styled.div`
   padding: 20px 40px;
 `;
@@ -32,6 +41,7 @@ const SignUp = ({ className, history }) => {
   const identifierRef = useRef(null);
   const passwordRef = useRef(null);
   const birthDateRef = useRef(null);
+  const [isError, setError] = useState(false);
 
   const submit = () => {
     const name = nameRef.current.value;
@@ -46,12 +56,12 @@ const SignUp = ({ className, history }) => {
       birthDate,
     })
       .then(res => {
-        if (res.status === 200) {
-          history.push(`/login/`);
-        }
+        console.log(`Customer successfully signed up: ${res.status}`);
+        history.push(`/login`);
       })
       .catch(err => {
-        console.log(`status = ${err.status}`);
+        console.log(`Get error while signing up customer: ${err}`);
+        setError(true);
       });
   };
 
@@ -79,10 +89,11 @@ const SignUp = ({ className, history }) => {
           <Input ref={identifierRef} />
 
           <SubTitle>Пароль</SubTitle>
-          <Input ref={passwordRef} />
+          <Input type="password" ref={passwordRef} />
 
           <br />
           <Button onClick={submit}>Зарегистрироваться</Button>
+          {isError ? <DangerSubTitle>Произошла ошибка, попробуйте познее</DangerSubTitle> : null}
         </Content>
       </Box>
     </div>
@@ -92,6 +103,10 @@ const SignUp = ({ className, history }) => {
 const StyledCafes = styled(SignUp)`
   ${Input} {
     min-width: 60%;
+  }
+
+  ${Button} {
+    margin-top: 10px;
   }
 `;
 

@@ -52,8 +52,9 @@ const InfoWrapper = styled.div`
   display: column;
 `;
 
-const OrdersPage = ({
+const Order = ({
   className,
+  history,
   cafeUid,
   orderUid,
   products,
@@ -62,19 +63,26 @@ const OrdersPage = ({
   receiveDttm,
   status,
 }) => {
-  const [cafe, setCafe] = useState({ isLoading: true });
+  const [cafe, setCafe] = useState({ isLoading: true, data: [], isError: false });
 
   useEffect(() => {
-    getCafe({ cafeUid }).then(data => setCafe({ isLoading: false, ...data }));
+    getCafe({ cafeUid })
+      .then(res => setCafe({ isLoading: false, data: res.data, isError: false }))
+      .catch(err => {
+        console.log(`Get error while getting cafe: ${err}`);
+        setCafe({ isLoading: false, data: [], isError: true });
+      });
   }, []);
 
   return (
     <Fallback isLoading={cafe.isLoading} Component={Loader}>
       <div className={className}>
-        <Box>
+        <Box onClick={() => history.push(`/orders/${orderUid}`)}>
           <Content>
             <Meta>
-              <SubTitle>Кофейня: {cafe.name}</SubTitle>
+              <SubTitle>
+                Кофейня: {cafe.isError ? 'Информация временно недоступна' : cafe.data.name}
+              </SubTitle>
               <ProductName>Заказ №: {orderUid.substr(0, 5)}</ProductName>
             </Meta>
             <InfoWrapper>
@@ -91,7 +99,11 @@ const OrdersPage = ({
             <Price>Оплачено: {totalPrice}</Price>
             <SubTitle>Товары</SubTitle>
             <Container>
-              <OrderProductsList products={products} cafeUid={cafeUid} />
+              {cafe.isError ? (
+                'Информация временно недоступна'
+              ) : (
+                <OrderProductsList className={className} products={products} cafeUid={cafeUid} />
+              )}
             </Container>
           </Content>
         </Box>
@@ -100,7 +112,7 @@ const OrdersPage = ({
   );
 };
 
-const StyledOrders = styled(OrdersPage)`
+const StyledOrder = styled(Order)`
   ${Input} {
     min-width: 60%;
   }
@@ -117,4 +129,4 @@ const StyledOrders = styled(OrdersPage)`
   }
 `;
 
-export default withRouter(StyledOrders);
+export default withRouter(StyledOrder);

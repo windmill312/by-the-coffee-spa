@@ -31,7 +31,7 @@ const Content = styled.div`
   padding: 20px 40px;
 `;
 
-const LoginPage = ({ className, history }) => {
+const LoginPage = ({ className, history, callback }) => {
   const identifierRef = useRef(null);
   const passwordRef = useRef(null);
 
@@ -49,7 +49,11 @@ const LoginPage = ({ className, history }) => {
           localStorage.setItem('refreshToken', res.data.refreshToken);
           localStorage.setItem('isAuth', true);
           localStorage.setItem('customerUid', res.data.customerUid);
-          history.push(`/cafes/map/`);
+          if (callback) {
+            history.push(callback);
+          } else {
+            history.push(`/cafes/map`);
+          }
         }
       })
       .catch(err => {

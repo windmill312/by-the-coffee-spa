@@ -1,10 +1,10 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
 import Button from './common/Button';
 import CartTable from './common/CartTable';
 import Title from './common/Title';
 import TitleContainer from './common/TitleContainer';
-import { createOrder } from '../api/orders';
+import { createOrder, getOrdersByCustomer } from '../api/orders';
 import Input from './common/Input';
 import SubTitle from './common/SubTitle';
 
@@ -21,8 +21,18 @@ const Separator = styled.div`
   margin: 10px 0;
 `;
 
+const DangerSubTitle = styled.h2`
+  margin: 8px 0 4px 0;
+  padding: 0;
+  font-weight: 700;
+  font-size: 1.1rem;
+  line-height: 1.5rem;
+  color: #ee6b21;
+`;
+
 const Cart = ({ cartItems, cafeUid, className, history }) => {
   const receiveDt = useRef(null);
+  const [isError, setError] = useState(false);
 
   const submit = () => {
     const receiveDttm = new Date(receiveDt.current.value).getTime();
@@ -37,21 +47,35 @@ const Cart = ({ cartItems, cafeUid, className, history }) => {
       }, {}),
     ).map(([productUid, quantity]) => ({ productUid, quantity }));
 
-    QiwiCheckout.createInvoice({
-      publicKey:
-        '7tXTAb36ZXSTV19PPzWtd2yTH7bGyK4mM3qBr4WCMyzKeJ9iDiVUnwQJBGego8rEKuquoAxjhTQ52XUnKVp822SKEgDX85xsNEhH7F5aANWqfziStGFqt6J8Jb7phi',
-      amount: totalPrice,
-    });
+    // @check service available
+    getOrdersByCustomer({ customerUid })
+      .then(() => {
+        // @todo срабатывает каждый раз
+        QiwiCheckout.createInvoice({
+          publicKey:
+            '7tXTAb36ZXSTV19PPzWtd2yTH7bGyK4mM3qBr4WCMyzKeJ9iDiVUnwQJBGego8rEKuquoAxjhTQ52XUnKVp822SKEgDX85xsNEhH7F5aANWqfziStGFqt6J8Jb7phi',
+          amount: totalPrice,
+        });
 
-    // todo добавить условие успешной оплаты
-    createOrder({
-      customerUid,
-      cafeUid,
-      products,
-      totalPrice,
-      receiveDttm,
-      status,
-    }).then(res => history.push(`/orders/${res.orderUid}`));
+        // @todo добавить условие успешной оплаты
+        createOrder({
+          customerUid,
+          cafeUid,
+          products,
+          totalPrice,
+          receiveDttm,
+          status,
+        })
+          .then(result => history.push(`/orders/${result.orderUid}`))
+          .catch(err => {
+            console.log(`Get error while creating order: ${err}`);
+            setError(true);
+          });
+      })
+      .catch(err => {
+        console.log(`Service unavailable: ${err}`);
+        setError(true);
+      });
   };
 
   return (
@@ -71,6 +95,7 @@ const Cart = ({ cartItems, cafeUid, className, history }) => {
           <Button large onClick={receiveDt ? submit : alert('Введите дату и время получения')}>
             Оплатить
           </Button>
+          {isError ? <DangerSubTitle>Произошла ошибка, попробуйте познее</DangerSubTitle> : null}
         </React.Fragment>
       ) : (
         <AmountText>Ваша корзина пуста.</AmountText>

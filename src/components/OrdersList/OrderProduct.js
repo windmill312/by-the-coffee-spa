@@ -6,6 +6,7 @@ import Meta from '../common/Meta';
 import { getProduct } from '../../api/products';
 import Loader from '../common/Loader';
 import Fallback from '../common/Fallback';
+import SubTitle from '../common/SubTitle';
 
 const Title = styled.div`
   font-weight: 700;
@@ -39,22 +40,29 @@ const Price = styled.h1`
 `;
 
 const OrderProduct = ({ className, history, product, cafeUid }) => {
-  const [info, setInfo] = useState({ isLoading: true, data: [] });
+  const [info, setInfo] = useState({ isLoading: true, data: [], isError: false });
 
   useEffect(() => {
-    getProduct({ productUid: product.productUid }).then(res =>
-      setInfo({ isLoading: false, ...res }),
-    );
+    getProduct({ productUid: product.productUid })
+      .then(res => setInfo({ isLoading: false, data: res.data, isError: false }))
+      .catch(err => {
+        console.log(`Get error while getting product: ${err}`);
+        setInfo({ isLoading: false, data: [], isError: true });
+      });
   }, []);
 
   return (
     <div className={className} role="link">
       <Fallback isLoading={info.isLoading} Component={Loader}>
-        <Box onClick={() => history.push(`/cafes/${cafeUid}/products/${product.productUid}`)}>
-          <Title>{info.name}</Title>
-          <Quantity>Количество: {product.quantity}</Quantity>
-          <Price>Сумма: {(product.quantity * info.price).toFixed(2)}</Price>
-        </Box>
+        {info.isError ? (
+          <SubTitle>Упс, произошла какая-то ошибка! Попробуйте снова познее...</SubTitle>
+        ) : (
+          <Box onClick={() => history.push(`/cafes/${cafeUid}/products/${product.productUid}`)}>
+            <Title>{info.name}</Title>
+            <Quantity>Количество: {product.quantity}</Quantity>
+            <Price>Сумма: {(product.quantity * info.price).toFixed(2)}</Price>
+          </Box>
+        )}
       </Fallback>
     </div>
   );
@@ -74,6 +82,10 @@ const StyledOrderProduct = styled(OrderProduct)`
     &:hover {
       box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.1);
     }
+  }
+
+  ${SubTitle} {
+    color: #ee6b21;
   }
 
   @media (max-width: 450px) {

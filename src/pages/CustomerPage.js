@@ -9,6 +9,7 @@ import Meta from '../components/common/Meta';
 import { convertTimestampToDate } from '../utils/timeUtils';
 import Fallback from '../components/common/Fallback';
 import Loader from '../components/common/Loader';
+import SubTitle from '../components/common/SubTitle';
 
 const Title = styled.h1`
   margin: 16px 0 0 0;
@@ -31,11 +32,16 @@ const Dates = styled.div`
 `;
 
 const CustomerPage = ({ className }) => {
-  const [customer, setCustomer] = useState({ isLoading: true });
+  const [customer, setCustomer] = useState({ isLoading: true, data: [], isError: false });
   const customerUid = localStorage.getItem('customerUid');
 
   useEffect(() => {
-    getCustomer({ customerUid }).then(data => setCustomer({ isLoading: false, ...data }));
+    getCustomer({ customerUid })
+      .then(res => setCustomer({ isLoading: false, data: res, isError: false }))
+      .catch(err => {
+        console.log(`Get error while getting customer info: ${err}`);
+        setCustomer({ isLoading: false, data: [], isError: true });
+      });
   }, []);
 
   return (
@@ -44,14 +50,18 @@ const CustomerPage = ({ className }) => {
         <TitleContainer>
           <Title>Личный кабинет</Title>
         </TitleContainer>
-        <Box>
-          <Content>
-            <Meta>
-              <Title>Имя: {customer.name}</Title>
-            </Meta>
-            <Dates>{convertTimestampToDate(customer.birthDate)}</Dates>
-          </Content>
-        </Box>
+        {customer.isError ? (
+          <SubTitle>Упс, произошла какая-то ошибка! Попробуйте снова познее...</SubTitle>
+        ) : (
+          <Box>
+            <Content>
+              <Meta>
+                <Title>Имя: {customer.data.name}</Title>
+              </Meta>
+              <Dates>{convertTimestampToDate(customer.data.birthDate)}</Dates>
+            </Content>
+          </Box>
+        )}
       </div>
     </Fallback>
   );
@@ -60,6 +70,10 @@ const CustomerPage = ({ className }) => {
 const StyledCustomerPage = styled(CustomerPage)`
   ${Input} {
     min-width: 60%;
+  }
+
+  ${SubTitle} {
+    color: #ee6b21;
   }
 `;
 

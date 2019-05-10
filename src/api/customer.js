@@ -37,6 +37,9 @@ export const logout = () =>
 
 export const getCustomer = () => client.get(ApiPath.CUSTOMER_ME).then(x => x.data);
 
+export const getCustomerIdentifier = ({ customerUid }) =>
+  client.get(`${ApiPath.CUSTOMER_IDENTIFIER}/${customerUid}`).then(x => x.data);
+
 export const refreshToken = ({ token, customerUid }) => {
   client
     .post(ApiPath.CUSTOMER_REFRESH, {

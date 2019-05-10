@@ -2,11 +2,15 @@ import axios from 'axios';
 import * as authUtils from '../utils/authUtils';
 import { CUSTOMER_REFRESH } from './apiPath';
 
+export const defaultUrl = {
+  API_URL: `http://localhost:8080/gateway/api/v1`,
+  FRONT_URL: `http://localhost:3000`,
+};
+
 const fetchClient = () => {
   const defaultOptions = {
-    baseURL: `http://localhost:8080/gateway/api/v1`,
+    baseURL: `${defaultUrl.API_URL}`,
   };
-
   const instance = axios.create(defaultOptions);
 
   instance.interceptors.request.use(function(config) {

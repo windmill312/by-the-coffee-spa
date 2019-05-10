@@ -8,6 +8,8 @@ import Fallback from '../common/Fallback';
 import Loader from '../common/Loader';
 import { getProduct } from '../../api/products';
 import Button from '../common/Button';
+import StyledContent from '../common/Content';
+import StyledContainer from '../common/Container';
 
 const Title = styled.div`
   font-weight: 700;
@@ -37,30 +39,34 @@ const ProductInfo = ({
   }, []);
 
   return (
-    <Fallback isLoading={product.isLoading} Component={Loader}>
-      <div className={className}>
-        <Box>
-          <Meta>
-            <Title>Название: {product.name}</Title>
-            <Button
-              type="button"
-              onClick={() =>
-                addToCart({
-                  productUid: product.productUid,
-                  name: product.name,
-                  price: product.price,
-                  cafeUid: cafeId,
-                })
-              }
-            >
-              В корзину
-            </Button>
-          </Meta>
-          <Description>Описание: {product.description}</Description>
-          <Price>Группа: {product.productGroup}</Price>
-        </Box>
-      </div>
-    </Fallback>
+    <StyledContainer>
+      <StyledContent>
+        <Fallback isLoading={product.isLoading} Component={Loader}>
+          <div className={className}>
+            <Box>
+              <Meta>
+                <Title>Название: {product.name}</Title>
+                <Button
+                  type="button"
+                  onClick={() =>
+                    addToCart({
+                      productUid: product.productUid,
+                      name: product.name,
+                      price: product.price,
+                      cafeUid: cafeId,
+                    })
+                  }
+                >
+                  В корзину
+                </Button>
+              </Meta>
+              <Description>Описание: {product.description}</Description>
+              <Price>Группа: {product.productGroup}</Price>
+            </Box>
+          </div>
+        </Fallback>
+      </StyledContent>
+    </StyledContainer>
   );
 };
 

@@ -7,6 +7,8 @@ import Description from '../common/Description';
 import { getCafe } from '../../api/cafes';
 import Loader from '../common/Loader';
 import Fallback from '../common/Fallback';
+import StyledContent from '../common/Content';
+import StyledContainer from '../common/Container';
 
 const Title = styled.div`
   font-weight: 700;
@@ -26,15 +28,19 @@ const Cafe = ({
   }, []);
 
   return (
-    <Fallback isLoading={cafe.isLoading} Component={Loader}>
-      <div className={className} role="link">
-        <Box>
-          <Meta>
-            <Title>{cafe.name}</Title>
-          </Meta>
-        </Box>
-      </div>
-    </Fallback>
+    <StyledContainer>
+      <StyledContent>
+        <Fallback isLoading={cafe.isLoading} Component={Loader}>
+          <div className={className} role="link">
+            <Box>
+              <Meta>
+                <Title>{cafe.name}</Title>
+              </Meta>
+            </Box>
+          </div>
+        </Fallback>
+      </StyledContent>
+    </StyledContainer>
   );
 };
 

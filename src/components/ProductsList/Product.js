@@ -37,6 +37,8 @@ const Group = styled.h1`
   align-text: right;
 `;
 
+const BorderlessBox = styled.div``;
+
 const Product = ({
   className,
   product,
@@ -49,25 +51,24 @@ const Product = ({
   return (
     <div className={className} role="link">
       <Box onClick={() => history.push(`/cafes/${id}/products/${product.productUid}`)}>
+        <Title>{product.name}</Title>
         <Meta>
-          <Title>{product.name}</Title>
           <InfoWrapper>
             <Group>{product.productGroup}</Group>
             <Price>{product.price.toFixed(2)} руб.</Price>
-            <Button
-              type="button"
-              onClick={() =>
-                addToCart({
-                  productUid: product.productUid,
-                  name: product.name,
-                  price: product.price,
-                  cafeUid: id,
-                })
-              }
-            >
-              В корзину
-            </Button>
           </InfoWrapper>
+          <BorderlessBox
+            onClick={() =>
+              addToCart({
+                productUid: product.productUid,
+                name: product.name,
+                price: product.price,
+                cafeUid: id,
+              })
+            }
+          >
+            <Button type="button">В корзину</Button>
+          </BorderlessBox>
         </Meta>
       </Box>
     </div>
@@ -80,8 +81,8 @@ const StyledCafe = styled(Product)`
     flex-direction: column;
     align-items: stretch;
     cursor: pointer;
-    padding: 0px 28px;
-    margin: 0 50px;
+    padding: 10px 28px 0 30px;
+    margin: 0 50px 10px 0;
 
     ${Description} {
       margin-top: 16px;
